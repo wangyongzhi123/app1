@@ -30,7 +30,9 @@ class CommentService
                 ],
                 'topicContent'=>[
                     'title'=>$data['title'] ?? '',
-                    'content'=>$data['content'],
+                    'content'=>$data['content'] ?? '',
+                    'intro'=>$data['intro'] ?? '',
+                    'richText'=>!empty($data['richText']) ? strip_tags($data['richText']) : '',
                     'mediaType'=>$data['mediaType'],//0是图片
                     'lastActionTime'=>$data['lastActionTime'] ?? '',
                     'lastCommentTime'=>$data['lastCommentTime'] ?? '',
@@ -48,8 +50,8 @@ class CommentService
     public function formatComment($data)
     {
         $data = $data['result']['list'] ?? [];
-//        dd($data);
         $userInfoFuc = function ($userId){
+            $userInfo = [];
             $yunUser = YunUser::where('user_id',$userId)->first();
             if($yunUser){
                 $userInfo = $yunUser->toArray();
@@ -60,8 +62,9 @@ class CommentService
             return ['userName'=>$userName,'avatar'=>$avatar];
         };
 
-
+        //dd($data);
         foreach ($data as $key => &$item){
+            //dd($item);
            $user = $userInfoFuc($item['commentUser']['userId']);
             //dd($user);
             $item['commentUser']['avatar'] = $user['avatar'];

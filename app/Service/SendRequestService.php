@@ -62,7 +62,6 @@ class SendRequestService
         // ...
         $body = $response->getBody()->getContents();
         return ['status' => true, 'code' => $statusCode, 'data' => $body];
-
     }
 
     public function transformStringUrlParams($string)

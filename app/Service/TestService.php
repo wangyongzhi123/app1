@@ -24,7 +24,10 @@ class YunUserService
                 'avatar'       => $value['avatar'] ?? ''
             ];
         }
+//        $commonDatas = array_chunk($commonData, 300);
+//        dd($commonData[0]);
         if ($commonData) {
+//            foreach ($commonDatas as $item){
                 try {
                     $singField   = ['user_id'];
                     $updateField = ['rank', 'user_name', 'dept_name', 'change_score', 'deduct_score', 'add_score', 'avatar'];
@@ -32,6 +35,7 @@ class YunUserService
                 } catch (\Exception $e) {
                     return ['status' => false, 'msg' => $e->getMessage()];
                 }
+//            }
 
         }
         return ['status' => true, 'total' => count($commonData)];

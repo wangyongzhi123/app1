@@ -30,6 +30,7 @@ class CommentsController extends Controller
                 $feed = $comment->formatFeed($_data);
             }
         }
+        //dd($commentReply);
         $data = ['feed' => $feed ?? [], 'comments' => $commentReply ?? [],'commentUrl'=>$commentUrl ?? '','feedUrl'=>$feedUrl ?? ''];
         return view('comments', $data);
     }
