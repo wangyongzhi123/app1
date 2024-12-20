@@ -10,7 +10,7 @@ class SendRequestService
     protected $type;
     protected $url;
     protected $urlPath;
-    protected $header;
+    public $header;
     protected $resetPageSize;
     protected $data;
 
@@ -54,14 +54,8 @@ class SendRequestService
             'headers'         => $this->header,
             'allow_redirects' => false,
         ]);
-        $statusCode = $response->getStatusCode();
-        if ($statusCode != 200) {
-            return ['status' => false, 'code' => $statusCode, 'msg' => '请求失败'];
-        }
-        // 处理响应
-        // ...
-        $body = $response->getBody()->getContents();
-        return ['status' => true, 'code' => $statusCode, 'data' => $body];
+        $content = $response->getBody()->getContents();
+        return json_decode($content, true);
     }
 
     public function transformStringUrlParams($string)
@@ -93,6 +87,7 @@ class SendRequestService
         }
         $this->urlPath = $urlPath;
         $this->header  = $newHeaderArr;
+        //dd($this->header);
 
     }
 
